@@ -10,7 +10,7 @@ import { Modal } from "./UI/Modal/Modal";
 export const UserList = () => {
   const [allUsers, setAllUsers] = useState<User[]>([]);
   const [visibleUsers, setVisibleUsers] = useState<User[]>([]);
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
   const itemsPerPage = 20;
   const [hasMore, setHasMore] = useState(true);
   const { state, dispatch } = useTheme();
@@ -19,6 +19,7 @@ export const UserList = () => {
   const fetchUsers = async () => {
     setLoading(true);
     try {
+      await new Promise((resolve) => setTimeout(resolve, 2000));
       const response = await axios.get(
         "https://9e06da9a-97cf-4701-adfc-9b9a5713bbb9.mock.pstmn.io/users"
       );
@@ -48,6 +49,9 @@ export const UserList = () => {
         );
         setVisibleUsers((prevVisible) => [...prevVisible, ...nextVisible]);
         setHasMore(totalVisible + itemsPerPage < allUsers.length);
+      }
+      if (scrollTop + clientHeight >= scrollHeight - 100) {
+        setLoading(true);
       }
     },
     [hasMore, allUsers, visibleUsers.length]
@@ -101,7 +105,7 @@ export const UserList = () => {
           </div>
         </Modal>
       )}
-      {loading && <div className="loading">Loading...</div>}
+      {loading && <div className="loading-spinner"></div>}
     </div>
   );
 };
