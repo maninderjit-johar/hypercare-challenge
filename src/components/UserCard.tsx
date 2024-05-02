@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-import { useTheme } from "../context/ThemeContext";
-import { Modal } from "./UI/Modal/Modal";
 import "./styles/User.css";
 
 export type User = {

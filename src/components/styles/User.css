@@ -1,7 +1,7 @@
 .user-list-container {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center; /* This will center the cards in the container */
+  justify-content: center;
   padding: 20px;
   gap: 20px;
   margin-top: 2rem;
@@ -61,18 +61,18 @@
 
 .user-info {
   padding: 20px;
-  flex-grow: 1; /* Ensures that this part expands to fill the space */
+  flex-grow: 1;
 }
 
 .user-name {
-  margin-top: 20px; /* Adjust if necessary */
+  margin-top: 20px;
   font-size: 1rem;
 }
 
 .user-description {
   font-size: 0.9rem;
   color: var(--text-color);
-  overflow: hidden; /* Prevents text from spilling out */
+  overflow: hidden;
 }
 
 button {

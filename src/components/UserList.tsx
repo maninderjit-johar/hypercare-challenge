@@ -1,5 +1,3 @@
-// src/components/UserList.tsx
-
 import React, { useEffect, useState, useCallback } from "react";
 import { UserCard, User } from "./UserCard";
 import axios from "axios";
