@@ -9,15 +9,25 @@ body,
 }
 
 :root {
-  --background-color-light: #fff;
-  --text-color-light: #333;
-  --background-color-dark: #333;
-  --text-color-dark: #fff;
-  --card-background-light: #fff;
-  --card-background-dark: #424242;
+  --background-color-light: #ffffff; /* Light theme background */
+  --text-color-light: #333333; /* Light theme text */
+  --button-bg-color-light: #007bff; /* Light theme button background */
+  --button-text-color-light: #ffffff; /* Light theme button text */
+  --card-bg-color-light: #ffffff;
+
+  --background-color-dark: #343a40; /* Dark theme background */
+  --text-color-dark: #cccccc; /* Dark theme text */
+  --button-bg-color-dark: #0069d9; /* Dark theme button background */
+  --button-text-color-dark: #ffffff; /* Dark theme button text */
+  --card-bg-color-dark: #424242;
+
+  --modal-background-light: #ffffff; /* Fallback: white */
+  --modal-text-light: #333333; /* Fallback: dark gray */
+  --modal-background-dark: #333333; /* Fallback: dark gray */
+  --modal-text-dark: #ffffff;
 }
 
-[data-theme="light"] {
+/* [data-theme="light"] {
   --background-color: var(--background-color-light);
   --text-color: var(--text-color-light);
   --card-background: var(--card-background-light);
@@ -28,7 +38,7 @@ body,
   --text-color: var(--text-color-dark);
   --card-background: var(--card-background-dark);
 }
-
+ */
 body {
   background-color: var(--background-color);
   color: var(--text-color);
@@ -39,13 +49,29 @@ body {
 }
 
 body[data-theme="light"] {
-  --card-background: #fff;
-  --text-color: #333;
-  --background-color: #eee;
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+  --button-bg-color: var(--button-bg-color-light);
+  --button-text-color: var(--button-text-color-light);
+  --card-bg-color: var(--card-bg-color-light);
+  --modal-background: var(--modal-background-light);
+  --modal-text: var(--modal-text-light);
 }
 
 body[data-theme="dark"] {
-  --card-background: #333;
-  --text-color: #ccc;
-  --background-color: #222;
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+  --button-bg-color: var(--button-bg-color-dark);
+  --button-text-color: var(--button-text-color-dark);
+  --card-bg-color: var(--card-bg-color-dark);
+  --modal-background: var(--modal-background-dark);
+  --modal-text: var(--modal-text-dark);
+}
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+button {
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
 }

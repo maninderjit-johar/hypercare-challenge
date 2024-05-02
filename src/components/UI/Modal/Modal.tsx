@@ -1,12 +1,14 @@
-import { ReactNode } from "react";
+// src/components/Modal.tsx
+
+import React from "react";
 
 type ModalProps = {
   isOpen: boolean;
   onClose: () => void;
-  children: ReactNode;
+  children: React.ReactNode;
 };
 
-export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
+export const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 
   return (
@@ -17,22 +19,24 @@ export const Modal = ({ isOpen, onClose, children }: ModalProps) => {
         left: 0,
         right: 0,
         bottom: 0,
-        backgroundColor: "rgba(0,0,0,0.5)",
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
+        backgroundColor: "rgba(0, 0, 0, 0.5)",
       }}
     >
       <div
         style={{
-          padding: 20,
-          backgroundColor: "white",
-          borderRadius: 5,
-          zIndex: 1000,
+          padding: "20px",
+          borderRadius: "5px",
+          backgroundColor: "var(--modal-background)",
+          color: "var(--modal-text)",
+          width: "80%",
+          maxWidth: "400px",
         }}
       >
         {children}
-        <button onClick={onClose} style={{ marginTop: 20 }}>
+        <button onClick={onClose} style={{ marginTop: "20px" }}>
           Close
         </button>
       </div>

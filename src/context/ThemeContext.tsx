@@ -19,7 +19,6 @@ const ThemeContext = createContext<{
   dispatch: () => undefined,
 });
 
-// Reducer function that returns a new state based on the given action
 const themeReducer = (state: ThemeState, action: ThemeAction): ThemeState => {
   switch (action.type) {
     case "TOGGLE_THEME":
@@ -29,13 +28,11 @@ const themeReducer = (state: ThemeState, action: ThemeAction): ThemeState => {
   }
 };
 
-// Context Provider component
 export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [state, dispatch] = useReducer(themeReducer, initialState);
 
-  // Effect to set data-theme on body element
   useEffect(() => {
     document.body.setAttribute("data-theme", state.theme);
     console.log("Theme", state.theme);
@@ -48,5 +45,4 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
-// Hook to use the theme context
 export const useTheme = () => useContext(ThemeContext);

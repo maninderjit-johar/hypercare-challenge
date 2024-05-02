@@ -16,41 +16,30 @@ export type User = {
 
 type UserCardProps = {
   user: User;
+  onViewMore: () => void;
 };
 
-export const UserCard = React.memo(({ user }: UserCardProps) => {
-  const [isModalOpen, setModalOpen] = useState(false);
-  const { state } = useTheme();
+export const UserCard = React.memo(({ user, onViewMore }: UserCardProps) => {
+  const truncateText = (text: string, maxLength: number): string => {
+    return text.length > maxLength
+      ? text.substring(0, maxLength) + "..."
+      : text;
+  };
 
   return (
     <div className="user-card">
-      <img
-        src={user.avatar}
-        alt={`${user.firstname} ${user.lastname}`}
-        style={{
-          width: 100,
-          height: 100,
-          objectFit: "cover",
-          borderRadius: "50%",
-        }}
-      />
-      <h2>
-        {user.firstname} {user.lastname}
-      </h2>
-      <button onClick={() => setModalOpen(true)}>View More</button>
-      <Modal isOpen={isModalOpen} onClose={() => setModalOpen(false)}>
-        <img
-          src={user.avatar}
-          alt={`${user.firstname} ${user.lastname}`}
-          style={{ width: "100%", height: "auto" }}
-        />
-        <h2>
+      <div className="user-image-container">
+        <img src={user.avatar} alt={`${user.firstname} ${user.lastname}`} />
+      </div>
+      <div className="user-info">
+        <h3 className="user-name">
           {user.firstname} {user.lastname}
-        </h2>
-        <p>Role: {user.role}</p>
-        <p>Joined: {user.join_date}</p>
-        <p>{user.description}</p>
-      </Modal>
+        </h3>
+        <p className="user-description">{truncateText(user.description, 50)}</p>
+      </div>
+      <button className="view-more-button" onClick={onViewMore}>
+        View More
+      </button>
     </div>
   );
 });

@@ -5,6 +5,7 @@ import { UserCard, User } from "./UserCard";
 import axios from "axios";
 import { useTheme } from "../context/ThemeContext";
 import "./styles/User.css";
+import { Modal } from "./UI/Modal/Modal";
 
 export const UserList = () => {
   const [allUsers, setAllUsers] = useState<User[]>([]);
@@ -13,6 +14,7 @@ export const UserList = () => {
   const itemsPerPage = 20;
   const [hasMore, setHasMore] = useState(true);
   const { state, dispatch } = useTheme();
+  const [modalUser, setModalUser] = useState<User | null>(null);
 
   const fetchUsers = async () => {
     setLoading(true);
@@ -56,20 +58,49 @@ export const UserList = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [handleScroll]);
 
+  const openModal = (user: User) => {
+    setModalUser(user);
+  };
+
+  const closeModal = () => {
+    setModalUser(null);
+  };
   const toggleText =
     state.theme === "light" ? "Switch to Dark Theme" : "Switch to Light Theme";
 
   return (
     <div className="user-list-container">
       <button
-        style={{ position: "fixed", top: 10, right: 10 }}
+        style={{ position: "fixed", top: 10, right: 10, marginRight: 15 }}
         onClick={() => dispatch({ type: "TOGGLE_THEME" })}
       >
         {toggleText}
       </button>
+
       {visibleUsers.map((user) => (
-        <UserCard key={user.id} user={user} />
+        <UserCard
+          key={user.id}
+          user={user}
+          onViewMore={() => openModal(user)}
+        />
       ))}
+
+      {modalUser && (
+        <Modal isOpen={true} onClose={closeModal}>
+          <div>
+            <img
+              src={modalUser.avatar}
+              alt="Avatar"
+              style={{ width: "100px" }}
+            />
+            <h2>
+              {modalUser.firstname} {modalUser.lastname}
+            </h2>
+            <p>Role: {modalUser.role}</p>
+            <p>Description: {modalUser.description}</p>
+          </div>
+        </Modal>
+      )}
       {loading && <div className="loading">Loading...</div>}
     </div>
   );
